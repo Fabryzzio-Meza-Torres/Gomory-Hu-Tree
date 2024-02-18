@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+</head>
+<body>
+    <form id="myForm" action="/convert" method="POST">
+        <label for="vertices">Cantidad de vértices:</label><br>
+        <input type="number" id="vertices" name="vertices" min="0"><br>
+        <label for="aristas">Cantidad de aristas:</label><br>
+        <input type="number" id="aristas" name="aristas" min="0"><br>
+        <label for="aristasData">Aristas(formato: vértice1 vértice2 peso):</label><br>
+        <textarea id="aristasData" name="aristasData" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
+
+
+
+
+
