@@ -1,24 +1,7 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-/*
-Name:- Tanmay Borkar
-
-The following code is use the calculate the Gomory Hu Cut Graph using the GusField pseudo code. The code makes uses of the Ford-Fulkerson algortihm to get the minimum cut between source and sink.
-Input:
-Number of nodes
-Number of edges
-Capacity of each edge
-Output:
-Cut tree consisting of the nodes and their corresponding maxflow.
-
-
-Reference:-
-1. http://ranger.uta.edu/~weems/NOTES5311/ff.c
-2. https://epubs-siam-org.ezproxy.uta.edu/doi/pdf/10.1137/0219009
-
-*/
-
+//ver esto....
 #include <stdio.h>
 
 // Basic Definitions
