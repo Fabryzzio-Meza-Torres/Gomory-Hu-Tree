@@ -1,10 +1,11 @@
 #include <iostream>
+#include <stdio.h>
 #include "queue.h"
 
 using namespace std;
 
 #define Max_nodes 5000
-#define oo 1000000000000
+#define oo 1000000000
 constexpr int White = 0;
 constexpr int Gray = 1;
 constexpr int Black = 2;
@@ -98,6 +99,25 @@ public:
       cin >> a >> b >> c;
       capacity[a][b] = c;
       capacity[b][a] = c;
+    }
+  }
+
+  void mgh(){
+    short p[Max_nodes], f1 [Max_nodes], corteMin, t ;
+    for(int i=0; i<num_nodes;i++){
+      //Inicializamos el arreglo de supernodos(p) y los flujos maximos de los supernodos(f1)
+      p[i]=0;
+      f1[i]=0;
+      for(int j=0;j<num_nodes;j++){
+        //Inicializamos el flujo maximo entre los supernodos i j 
+        tree[i][j]=0;
+      }
+    }
+
+    for(int source=1; source<num_nodes; source++){
+      short sink=p[source];
+
+      corteMin= Ford_Fulkerson(source, sink);
     }
   }
 };

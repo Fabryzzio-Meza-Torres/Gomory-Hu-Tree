@@ -1,21 +1,20 @@
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
-#define standard_size = 100;
 template <typename T>
 class Queue
 {
 private:
-    int front{}, rear{}, size{}, capacity{};
+    int front, rear, size, capacity;
     T *array;
 
 public:
-    Queue(int size) : array(new T[size]), size(size), front(0), rear(-1), capacity(size);
-    Queue() : array(new T[standard_size]), size{}, front{}, rear(-1), capacity{};
+    Queue(int size = 100) : array(new T[size]), size(0), front(0), rear(-1), capacity(size) {}
     ~Queue()
     {
-        delete array[];
+        delete[] array;
     }
 
     T dequeue()
@@ -25,7 +24,7 @@ public:
             throw runtime_error("The Queue is empty");
         }
         T temp = array[front];
-        cout << "Removing" << temp << endl;
+        cout << "Removing " << temp << endl;
         front = (front + 1) % capacity;
         size--;
         return temp;
@@ -37,7 +36,7 @@ public:
         {
             throw runtime_error("Overflow");
         }
-        cout << "Inserting" << item << endl;
+        cout << "Inserting " << item << endl;
         rear = (rear + 1) % capacity;
         array[rear] = item;
         size++;
@@ -52,18 +51,19 @@ public:
         return array[front];
     }
 
-    int size()
+    int getSize()
     {
         return size;
     }
 
     bool isEmpty()
     {
-        return (size == 0) ? true : false;
+        return size == 0;
     }
 
-    bool isfull()
+    bool isFull()
     {
-        return (size == capacity) ? true : false;
+        return size == capacity;
     }
 };
+
