@@ -78,4 +78,26 @@ public:
     }
     return max_flow;
   }
+
+  void read_input_file()
+  {
+    int a, b, c, i, j;
+
+    cin >> num_nodes >> num_edges;
+
+    for (i = 0; i < num_nodes; i++)
+    {
+      for (j = 0; j < num_nodes; j++)
+      {
+        capacity[i][j] = 0;
+      }
+    }
+
+    for (i = 0; i < num_edges; i++)
+    {
+      cin >> a >> b >> c;
+      capacity[a][b] = c;
+      capacity[b][a] = c;
+    }
+  }
 };
