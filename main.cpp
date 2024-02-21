@@ -10,10 +10,15 @@ int main()
     // Leer el grafo desde la entrada estándar
     graph.read_input_file();
     graph.print();
+<<<<<<< Updated upstream
     cout << endl;
     cout << graph.bfs(2, 0) << endl;
     cout << endl;
     graph.mgh();
 
+=======
+    cout<<endl;
+    graph.mgh();
+>>>>>>> Stashed changes
     return 0;
 }

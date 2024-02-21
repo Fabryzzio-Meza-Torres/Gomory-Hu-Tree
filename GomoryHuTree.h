@@ -104,27 +104,31 @@ public:
     return max_flow;
   }
 
+<<<<<<< Updated upstream
   void read_input_file()
   {
     int a, b, c, i, j;
+=======
+void read_input_file() {
+	int a, b, c, i, j;
+>>>>>>> Stashed changes
 
-    cin >> num_nodes >> num_edges;
+	// read number of nodes and edges
+	scanf("%d %d", &num_nodes, &num_edges);
+	// initialize empty capacity matrix 
+	for (i = 0; i<num_nodes; i++) {
+		for (j = 0; j<num_nodes; j++) {
+			capacity[i][j] = 0;
+		}
+	}
+	// read edge capacities
+	for (i = 0; i<num_edges; i++) {
+		scanf("%d %d %d", &a, &b, &c);
+		capacity[a][b] = c;
+		capacity[b][a] = c;// Could have parallel edges
+	}
+}
 
-    for (i = 0; i < num_nodes; i++)
-    {
-      for (j = 0; j < num_nodes; j++)
-      {
-        capacity[i][j] = 0;
-      }
-    }
-
-    for (i = 0; i < num_edges; i++)
-    {
-      cin >> a >> b >> c;
-      capacity[a][b] = c;
-      capacity[b][a] = c;
-    }
-  }
 
   void print()
   {
@@ -141,6 +145,7 @@ public:
     }
   }
 
+<<<<<<< Updated upstream
   void mgh()
   {
     short i, j, s, p[Max_nodes], t, pos, f1[Max_nodes], minimumCut;
@@ -152,12 +157,24 @@ public:
       for (j = 0; j < num_nodes; j++)
       {
         tree[i][j] = 0;
+=======
+void mgh(){
+    short i, j, p[Max_nodes], f1 [Max_nodes], corteMin, source, sink ;
+    for(i=0; i<num_nodes;i++){
+      //Inicializamos el arreglo de supernodos(p) y los flujos maximos de los supernodos(f1)
+      p[i]=0;
+      f1[i]=0;
+      for(j=0;j<num_nodes;j++){
+        //Inicializamos el flujo maximo entre los supernodos i j 
+        tree[i][j]=0;
+>>>>>>> Stashed changes
       }
     }
 
     for (s = 1; s < num_nodes; s++)
     {
 
+<<<<<<< Updated upstream
       // Initialize sink
       t = p[s];
 
@@ -206,6 +223,34 @@ public:
       for (j = 0; j < num_nodes; j++)
         if (tree[i][j] > 0)
           printf("%d %d %d\n", i, j, tree[i][j]);
+=======
+      corteMin= Ford_Fulkerson(source, sink);
+      f1[source]=corteMin;
+    
+    for (i=0; i<num_nodes;i++){
+      if(i != source && p[i]== sink && color[i]== Black){
+        p[i]= source;
+      }
+    }
+    if(color[p[sink]]== Black){
+      p[source]= p[sink];
+      p[sink]= source; 
+      f1[source]= f1[sink];
+      f1[sink]= corteMin;
+    }
+    if(source== num_nodes-1){
+      for (int i=1; i<=source; i++){
+        tree[i][p[i]]= f1[i];
+      }
+    }
+    }
+    //Imprimir 
+	printf("\n");
+	for (i = 0; i<num_nodes; i++)
+		for (j = 0; j<num_nodes; j++)
+			if(tree[i][j]>0)
+				printf("%d %d %d\n", i, j, tree[i][j]);
+>>>>>>> Stashed changes
   }
 };
 
