@@ -104,14 +104,9 @@ public:
     return max_flow;
   }
 
-<<<<<<< Updated upstream
   void read_input_file()
   {
     int a, b, c, i, j;
-=======
-void read_input_file() {
-	int a, b, c, i, j;
->>>>>>> Stashed changes
 
 	// read number of nodes and edges
 	scanf("%d %d", &num_nodes, &num_edges);
@@ -145,89 +140,25 @@ void read_input_file() {
     }
   }
 
-<<<<<<< Updated upstream
-  void mgh()
-  {
-    short i, j, s, p[Max_nodes], t, pos, f1[Max_nodes], minimumCut;
-
-    for (i = 0; i < num_nodes; i++)
-    {
-      p[i] = 0;
-      f1[i] = 0;
-      for (j = 0; j < num_nodes; j++)
-      {
-        tree[i][j] = 0;
-=======
 void mgh(){
-    short i, j, p[Max_nodes], f1 [Max_nodes], corteMin, source, sink ;
-    for(i=0; i<num_nodes;i++){
+    short p[Max_nodes], f1 [Max_nodes], corteMin, t, source, sink ;
+    for(int i=0; i<num_nodes;i++){
       //Inicializamos el arreglo de supernodos(p) y los flujos maximos de los supernodos(f1)
       p[i]=0;
       f1[i]=0;
-      for(j=0;j<num_nodes;j++){
+      for(int j=0;j<num_nodes;j++){
         //Inicializamos el flujo maximo entre los supernodos i j 
         tree[i][j]=0;
->>>>>>> Stashed changes
       }
     }
 
-    for (s = 1; s < num_nodes; s++)
-    {
+    for(source=1; source<num_nodes; source++){
+      sink=p[source];
 
-<<<<<<< Updated upstream
-      // Initialize sink
-      t = p[s];
-
-      // Calculate the minimum cut
-      minimumCut = Ford_Fulkerson(s, t);
-
-      f1[s] = minimumCut;
-
-      /*for (i = 0; i < n; i++) {
-        for (j = 0; j < n; j++) {
-          tree[i][j] = 0;
-        }
-      }*/
-
-      // Mark the nodes in the supernode with its representative
-      for (i = 0; i < num_nodes; i++)
-      {
-        if (i != s && p[i] == t && color[i] == Black)
-        {
-          p[i] = s;
-        }
-      }
-
-      // Change the label
-      if (color[p[t]] == Black)
-      {
-        p[s] = p[t];
-        p[t] = s;
-        f1[s] = f1[t];
-        f1[t] = minimumCut;
-      }
-
-      // Store the final cut tree when s is the last node of the input graph.
-      if (s == num_nodes - 1)
-      {
-        for (i = 1; i <= s; i++)
-        {
-          tree[i][p[i]] = f1[i];
-        }
-      }
-    }
-
-    // Print the Cut Tree
-    printf("\n");
-    for (i = 0; i < num_nodes; i++)
-      for (j = 0; j < num_nodes; j++)
-        if (tree[i][j] > 0)
-          printf("%d %d %d\n", i, j, tree[i][j]);
-=======
       corteMin= Ford_Fulkerson(source, sink);
       f1[source]=corteMin;
-    
-    for (i=0; i<num_nodes;i++){
+  
+    for(int i=0; i<num_nodes;i++){
       if(i != source && p[i]== sink && color[i]== Black){
         p[i]= source;
       }
@@ -245,13 +176,13 @@ void mgh(){
     }
     }
     //Imprimir 
+    for(int i=0; i<num_nodes; i++){
 	printf("\n");
-	for (i = 0; i<num_nodes; i++)
-		for (j = 0; j<num_nodes; j++)
+	for (int i = 0; i<num_nodes; i++)
+		for (int j = 0; j<num_nodes; j++)
 			if(tree[i][j]>0)
 				printf("%d %d %d\n", i, j, tree[i][j]);
->>>>>>> Stashed changes
-  }
+  }}
 };
 
 #endif
