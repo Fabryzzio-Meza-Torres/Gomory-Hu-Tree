@@ -11,7 +11,7 @@ private:
     T *array;
 
 public:
-    Queue(int size = 100) : array(new T[size]), size(0), front(0), rear(-1), capacity(size) {}
+    Queue(int size) : array(new T[size]), size(0), front(0), rear(-1), capacity(size) {}
     ~Queue()
     {
         delete[] array;
@@ -24,7 +24,6 @@ public:
             throw runtime_error("The Queue is empty");
         }
         T temp = array[front];
-        cout << "Removing " << temp << endl;
         front = (front + 1) % capacity;
         size--;
         return temp;
@@ -36,24 +35,18 @@ public:
         {
             throw runtime_error("Overflow");
         }
-        cout << "Inserting " << item << endl;
         rear = (rear + 1) % capacity;
         array[rear] = item;
         size++;
     }
 
-    T peek()
+    void print()
     {
-        if (isEmpty())
+        for (int i = 0; i < size; i++)
         {
-            throw runtime_error("The Queue is empty");
+            cout << array[(front + i) % capacity] << " ";
         }
-        return array[front];
-    }
-
-    int getSize()
-    {
-        return size;
+        cout << endl;
     }
 
     bool isEmpty()
@@ -65,5 +58,6 @@ public:
     {
         return size == capacity;
     }
+    
 };
 

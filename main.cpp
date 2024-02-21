@@ -1,13 +1,14 @@
-#include "GomoryHuTree.h"
 #include <iostream>
-using namespace std;
+#include "gomoryhutree.h"
 
-int main()
-{
+int main() {
+	freopen("input.txt", "r", stdin);
+
     Graph graph;
-    freopen("input.txt", "r", stdin);
-    graph.read_input_file();
-    graph.mgh();
 
+    // Leer el grafo desde la entrada estándar
+    graph.read_input_file();
+
+    cout<< graph.bfs(0, 2)<<endl;
     return 0;
 }

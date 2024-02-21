@@ -1,55 +1,73 @@
+#ifndef GOMORYHUTREE_H
+#define GOMORYHUTREE_H
+
 #include <iostream>
-#include <stdio.h>
 #include "queue.h"
 
-using namespace std;
-
-#define Max_nodes 5000
-#define oo 1000000000
+constexpr int Max_nodes = 5000;
+constexpr int oo =  1000000000;
 constexpr int White = 0;
 constexpr int Gray = 1;
 constexpr int Black = 2;
+int num_nodes;
+int num_edges;
+short capacity[Max_nodes][Max_nodes];
+short flow[Max_nodes][Max_nodes];
+short color[Max_nodes];
+short pred[Max_nodes];
+short tree[Max_nodes][Max_nodes];
+Queue<int> queue(Max_nodes+2);
 
 class Graph
 {
-private:
-  int num_nodes{};
-  int num_edges{};
-  int capacity[Max_nodes][Max_nodes];
-  int flow[Max_nodes][Max_nodes];
-  int color[Max_nodes];
-  int pred[Max_nodes];
-  int tree[Max_nodes][Max_nodes];
-  Queue<int> queue;
-
 public:
+
   int minimun(int a, int b)
   {
     return a > b ? b : a;
   }
   int bfs(int start, int target)
   {
-    int u, v;
-    for (u = 0; u < num_nodes; u++)
+    int i, j, u, v;
+    for (i = 0; i < num_nodes; i++)
     {
-      color[u] = White;
+      color[i] = White;
     }
     queue.enqueue(start);
-    pred[start] = -1;
+    color[start] = Gray;
+    pred[start] = (-1);
     while (!queue.isEmpty())
     {
       u = queue.dequeue();
+      if (u == target)
+      {
+        break;
+      }
       for (v = 0; v < num_nodes; v++)
       {
-        if (color[v] == White && capacity[u][v] - flow[u][v] > 0)
+        if (color[v] == White && (capacity[u][v] - flow[u][v]) > 0)
         {
           queue.enqueue(v);
           pred[v] = u;
+          color[v] = Gray;
         }
       }
+      color[u] = Black;
     }
+    return (color[target] == Black);
+  }
 
-    return color[target] == Black;
+  void print_tree()
+  {
+    int i, j;
+    for (i = 0; i < num_nodes; i++)
+    {
+      for (j = 0; j < num_nodes; j++)
+      {
+        std::cout << tree[i][j] << " ";
+      }
+      std::cout << std::endl;
+    }
   }
 
   int Ford_Fulkerson(int source, int sink)
@@ -80,7 +98,7 @@ public:
     return max_flow;
   }
 
-  void read_input_file()
+    void read_input_file()
   {
     int a, b, c, i, j;
 
@@ -102,8 +120,22 @@ public:
     }
   }
 
-  void mgh(){
-    short p[Max_nodes], f1 [Max_nodes], corteMin, t ;
+  void print(){
+    cout<<"num_node"<<num_nodes<<endl;
+    cout<<"num_edges"<<num_edges<<endl;
+    cout<<"capacity"<<endl;
+    for (int i = 0; i < num_nodes; i++)
+    {
+      for (int j = 0; j < num_nodes; j++)
+      {
+        cout << capacity[i][j] << " ";
+      }
+      cout << endl;
+    }
+  }
+
+    void mgh(){
+    short p[Max_nodes], f1 [Max_nodes], corteMin, t, source, sink ;
     for(int i=0; i<num_nodes;i++){
       //Inicializamos el arreglo de supernodos(p) y los flujos maximos de los supernodos(f1)
       p[i]=0;
@@ -114,10 +146,36 @@ public:
       }
     }
 
-    for(int source=1; source<num_nodes; source++){
-      short sink=p[source];
+    for(source=1; source<num_nodes; source++){
+      sink=p[source];
 
       corteMin= Ford_Fulkerson(source, sink);
+      f1[source]=corteMin;
+    }
+    for(int i=0; i<num_nodes;i++){
+      if(i != source && p[i]== sink && color[i]== Black){
+        p[i]= source;
+      }
+    }
+    if(color[p[sink]]== Black){
+      p[source]= p[sink];
+      p[sink]= source; 
+      f1[source]= f1[sink];
+      f1[sink]= corteMin;
+    }
+    if(source== num_nodes-1){
+      for (int i=1; i<=source; i++){
+        tree[i][p[i]]= f1[i];
+      }
+    }
+    //Imprimir 
+    for(int i=0; i<num_nodes; i++){
+      for(int j=0; j<num_nodes; j++){
+        cout<<tree[i][j]<<" ";
+      }
+      cout<<endl;
     }
   }
 };
+
+#endif
