@@ -9,27 +9,22 @@ class Queue
 private:
     int front, rear, size, capacity;
     T *array;
+    int color[MAX_NODES]; // Declarar color aquí para usarlo en dequeue y enqueue
 
 public:
-    Queue(int size) : array(new T[size]), size(0), front(0), rear(-1), capacity(size) {}
+    Queue(int size) : array(new T[size]), size(0), front(0), rear(-1), capacity(size)
+    {
+        for (int i = 0; i < MAX_NODES; ++i) {
+            color[i] = 0; // Inicializar color como White
+        }
+    }
+
     ~Queue()
     {
         delete[] array;
     }
 
-    T dequeue()
-    {
-        if (isEmpty())
-        {
-            throw runtime_error("The Queue is empty");
-        }
-        T temp = array[front];
-        front = (front + 1) % capacity;
-        size--;
-        return temp;
-    }
-
-    void enqueue(T item)
+    void enqueue(T item, int color[int MAX_NODES])
     {
         if (isFull())
         {
@@ -38,15 +33,20 @@ public:
         rear = (rear + 1) % capacity;
         array[rear] = item;
         size++;
+        color[item] = GRAY; // Colorear el nodo en gris al encolarlo
     }
 
-    void print()
+    T dequeue(int color[int MAX_NODES])
     {
-        for (int i = 0; i < size; i++)
+        if (isEmpty())
         {
-            cout << array[(front + i) % capacity] << " ";
+            throw runtime_error("The Queue is empty");
         }
-        cout << endl;
+        T temp = array[front];
+        front = (front + 1) % capacity;
+        size--;
+        color[temp] = BLACK; // Colorear el nodo en negro al desencolarlo
+        return temp;
     }
 
     bool isEmpty()
@@ -58,6 +58,4 @@ public:
     {
         return size == capacity;
     }
-    
 };
-

@@ -2,7 +2,6 @@
 #define GOMORYHUTREE_H
 
 #include <iostream>
-#include "queue.h"
 
 constexpr int Max_nodes = 5000;
 constexpr int oo =  1000000000;
@@ -16,8 +15,7 @@ short flow[Max_nodes][Max_nodes];
 short color[Max_nodes];
 short pred[Max_nodes];
 short tree[Max_nodes][Max_nodes];
-Queue<int> queue(Max_nodes+2);
-
+using namespace std;
 class Graph
 {
 public:
@@ -26,35 +24,42 @@ public:
   {
     return a > b ? b : a;
   }
-  int bfs(int start, int target)
+
+  int bfs(int source, int sink)
   {
     int i, j, u, v;
     for (i = 0; i < num_nodes; i++)
     {
       color[i] = White;
     }
-    queue.enqueue(start);
-    color[start] = Gray;
-    pred[start] = (-1);
-    while (!queue.isEmpty())
+    color[source] = Gray;
+    pred[source] = (-1);
+    for (i = 0; i < num_nodes; i++)
     {
-      u = queue.dequeue();
-      if (u == target)
-      {
-        break;
-      }
+      pred[i] = (-1);
+    }
+    int head = 0;
+    int tail = 0;
+    int q[Max_nodes];
+    q[tail] = source;
+    tail++;
+    while (head < tail)
+    {
+      u = q[head];
+      head++;
       for (v = 0; v < num_nodes; v++)
       {
         if (color[v] == White && (capacity[u][v] - flow[u][v]) > 0)
         {
-          queue.enqueue(v);
-          pred[v] = u;
           color[v] = Gray;
+          pred[v] = u;
+          q[tail] = v;
+          tail++;
         }
       }
       color[u] = Black;
     }
-    return (color[target] == Black);
+    return (color[sink] == Black);
   }
 
   void print_tree()

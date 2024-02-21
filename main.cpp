@@ -8,7 +8,7 @@ int main() {
 
     // Leer el grafo desde la entrada estándar
     graph.read_input_file();
-
-    cout<< graph.bfs(0, 2)<<endl;
+    graph.print();
+    //cout<< graph.bfs(2,0)<<endl;
     return 0;
 }
