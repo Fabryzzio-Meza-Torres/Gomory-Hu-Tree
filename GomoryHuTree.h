@@ -2,9 +2,11 @@
 #define GOMORYHUTREE_H
 
 #include <iostream>
+#include <stdio.h>
+using namespace std;
 
 constexpr int Max_nodes = 5000;
-constexpr int oo =  1000000000;
+constexpr int oo = 1000000000;
 constexpr int White = 0;
 constexpr int Gray = 1;
 constexpr int Black = 2;
@@ -19,7 +21,6 @@ using namespace std;
 class Graph
 {
 public:
-
   int minimun(int a, int b)
   {
     return a > b ? b : a;
@@ -103,7 +104,7 @@ public:
     return max_flow;
   }
 
-    void read_input_file()
+  void read_input_file()
   {
     int a, b, c, i, j;
 
@@ -125,10 +126,11 @@ public:
     }
   }
 
-  void print(){
-    cout<<"num_node"<<num_nodes<<endl;
-    cout<<"num_edges"<<num_edges<<endl;
-    cout<<"capacity"<<endl;
+  void print()
+  {
+    cout << "num_node " << num_nodes << endl;
+    cout << "num_edges " << num_edges << endl;
+    cout << "capacity matriz: " << endl;
     for (int i = 0; i < num_nodes; i++)
     {
       for (int j = 0; j < num_nodes; j++)
@@ -139,47 +141,71 @@ public:
     }
   }
 
-    void mgh(){
-    short p[Max_nodes], f1 [Max_nodes], corteMin, t, source, sink ;
-    for(int i=0; i<num_nodes;i++){
-      //Inicializamos el arreglo de supernodos(p) y los flujos maximos de los supernodos(f1)
-      p[i]=0;
-      f1[i]=0;
-      for(int j=0;j<num_nodes;j++){
-        //Inicializamos el flujo maximo entre los supernodos i j 
-        tree[i][j]=0;
+  void mgh()
+  {
+    short i, j, s, p[Max_nodes], t, pos, f1[Max_nodes], minimumCut;
+
+    for (i = 0; i < num_nodes; i++)
+    {
+      p[i] = 0;
+      f1[i] = 0;
+      for (j = 0; j < num_nodes; j++)
+      {
+        tree[i][j] = 0;
       }
     }
 
-    for(source=1; source<num_nodes; source++){
-      sink=p[source];
+    for (s = 1; s < num_nodes; s++)
+    {
 
-      corteMin= Ford_Fulkerson(source, sink);
-      f1[source]=corteMin;
-    }
-    for(int i=0; i<num_nodes;i++){
-      if(i != source && p[i]== sink && color[i]== Black){
-        p[i]= source;
+      // Initialize sink
+      t = p[s];
+
+      // Calculate the minimum cut
+      minimumCut = Ford_Fulkerson(s, t);
+
+      f1[s] = minimumCut;
+
+      /*for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+          tree[i][j] = 0;
+        }
+      }*/
+
+      // Mark the nodes in the supernode with its representative
+      for (i = 0; i < num_nodes; i++)
+      {
+        if (i != s && p[i] == t && color[i] == Black)
+        {
+          p[i] = s;
+        }
+      }
+
+      // Change the label
+      if (color[p[t]] == Black)
+      {
+        p[s] = p[t];
+        p[t] = s;
+        f1[s] = f1[t];
+        f1[t] = minimumCut;
+      }
+
+      // Store the final cut tree when s is the last node of the input graph.
+      if (s == num_nodes - 1)
+      {
+        for (i = 1; i <= s; i++)
+        {
+          tree[i][p[i]] = f1[i];
+        }
       }
     }
-    if(color[p[sink]]== Black){
-      p[source]= p[sink];
-      p[sink]= source; 
-      f1[source]= f1[sink];
-      f1[sink]= corteMin;
-    }
-    if(source== num_nodes-1){
-      for (int i=1; i<=source; i++){
-        tree[i][p[i]]= f1[i];
-      }
-    }
-    //Imprimir 
-    for(int i=0; i<num_nodes; i++){
-      for(int j=0; j<num_nodes; j++){
-        cout<<tree[i][j]<<" ";
-      }
-      cout<<endl;
-    }
+
+    // Print the Cut Tree
+    printf("\n");
+    for (i = 0; i < num_nodes; i++)
+      for (j = 0; j < num_nodes; j++)
+        if (tree[i][j] > 0)
+          printf("%d %d %d\n", i, j, tree[i][j]);
   }
 };
 
