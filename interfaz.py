@@ -44,16 +44,36 @@ def obtener_datos():
     # Guardar los datos en un archivo de texto
     with open("datos.txt", "w") as file:
         file.write(txt_data)
+    messagebox.showinfo("Datos guardados", "Los datos han sido guardados en 'datos.txt'.")
 
-    # Crear el grafo y dibujarlo
-    G = nx.Graph()
-    for arista in aristas:
-        G.add_edge(arista[0], arista[1], weight=arista[2])  # Añadimos el peso como atributo 'weight'
-    pos = nx.spring_layout(G)  # Posiciones de los nodos
-    nx.draw(G, pos, with_labels=True, node_size=700, node_color='skyblue', font_size=10, font_weight='bold')  # Dibujamos el grafo
-    labels = nx.get_edge_attributes(G, 'weight')  # Obtenemos los pesos de las aristas
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)  # Dibujamos los pesos
-    plt.show()
+def obtener_datos():
+    try:
+        # Leer los datos desde el archivo de texto
+        with open("datos.txt", "r") as file:
+            lines = file.readlines()
+
+        # Obtener la cantidad de aristas y vértices
+        cantidad_aristas, cantidad_vertices = map(int, lines[0].split())
+
+        # Obtener las aristas y sus pesos
+        aristas = []
+        for line in lines[1:]:
+            datos_arista = list(map(int, line.split()))
+            aristas.append((datos_arista[0], datos_arista[1], datos_arista[2]))
+
+        # Crear el grafo y dibujarlo
+        G = nx.Graph()
+        for arista in aristas:
+            G.add_edge(arista[0], arista[1], weight=arista[2])  # Añadimos el peso como atributo 'weight'
+        pos = nx.spring_layout(G)  # Posiciones de los nodos
+        nx.draw(G, pos, with_labels=True, node_size=700, node_color='skyblue', font_size=10, font_weight='bold')  # Dibujamos el grafo
+        labels = nx.get_edge_attributes(G, 'weight')  # Obtenemos los pesos de las aristas
+        nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)  # Dibujamos los pesos
+        plt.show()
+
+    except FileNotFoundError:
+        messagebox.showerror("Error", "El archivo de datos 'datos.txt' no fue encontrado.")
+
 
 # Crear la ventana principal
 root = tk.Tk()
