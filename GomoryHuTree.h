@@ -26,7 +26,7 @@ public:
     return a > b ? b : a;
   }
 
-  int bfs(int source, int sink)
+int bfs(int source, int sink)
   {
     int i, j, u, v;
     for (i = 0; i < num_nodes; i++)
@@ -176,13 +176,12 @@ void mgh(){
     }
     }
     //Imprimir 
-    for(int i=0; i<num_nodes; i++){
 	printf("\n");
 	for (int i = 0; i<num_nodes; i++)
 		for (int j = 0; j<num_nodes; j++)
 			if(tree[i][j]>0)
 				printf("%d %d %d\n", i, j, tree[i][j]);
-  }}
+  }
 };
 
 #endif
