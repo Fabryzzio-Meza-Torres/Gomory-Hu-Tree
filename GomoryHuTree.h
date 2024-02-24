@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <fstream>
 using namespace std;
 
 constexpr int Max_nodes = 5000;
@@ -26,7 +27,7 @@ public:
     return a > b ? b : a;
   }
 
-  int bfs(int source, int sink)
+int bfs(int source, int sink)
   {
     int i, j, u, v;
     for (i = 0; i < num_nodes; i++)
@@ -104,24 +105,36 @@ public:
     return max_flow;
   }
 
-  void read_input_file()
-  {
+void read_input_file(const std::string& filename)
+{
     int a, b, c, i, j;
 
-	// read number of nodes and edges
-	scanf("%d %d", &num_nodes, &num_edges);
-	// initialize empty capacity matrix 
-	for (i = 0; i<num_nodes; i++) {
-		for (j = 0; j<num_nodes; j++) {
-			capacity[i][j] = 0;
-		}
-	}
-	// read edge capacities
-	for (i = 0; i<num_edges; i++) {
-		scanf("%d %d %d", &a, &b, &c);
-		capacity[a][b] = c;
-		capacity[b][a] = c;// Could have parallel edges
-	}
+    // Abrir el archivo para lectura
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error: No se pudo abrir el archivo " << filename << std::endl;
+        return;
+    }
+
+    // Leer el número de nodos y aristas
+    file >> num_nodes >> num_edges;
+
+    // Inicializar la matriz de capacidades vacía
+    for (i = 0; i < num_nodes; i++) {
+        for (j = 0; j < num_nodes; j++) {
+            capacity[i][j] = 0;
+        }
+    }
+
+    // Leer las aristas y sus capacidades
+    for (i = 0; i < num_edges; i++) {
+        file >> a >> b >> c;
+        capacity[a][b] = c;
+        capacity[b][a] = c;  // Si el grafo es no dirigido, también necesitas esta línea
+    }
+
+    // Cerrar el archivo
+    file.close();
 }
 
 
@@ -176,13 +189,27 @@ void mgh(){
     }
     }
     //Imprimir 
-    for(int i=0; i<num_nodes; i++){
 	printf("\n");
 	for (int i = 0; i<num_nodes; i++)
 		for (int j = 0; j<num_nodes; j++)
 			if(tree[i][j]>0)
 				printf("%d %d %d\n", i, j, tree[i][j]);
-  }}
+  }
+  void grabar_datos(const char* filename){
+  std::ofstream file(filename);
+  if (!file.is_open()) {
+    std::cerr << "Error: No se pudo abrir el archivo " << filename << std::endl;
+    return;
+  }
+  for (int i=0; i<num_nodes;i++){
+    for (int j=0; j<num_nodes;j++){
+      if(tree[i][j]>0){
+        file << i << " " << j << " " << tree[i][j] << std::endl;
+      }
+    }
+  }
+}
 };
+
 
 #endif
