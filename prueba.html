@@ -14,48 +14,27 @@
   <input type="number" id="cantidadVertices" name="cantidadVertices" required><br>
   <label for="cantidadAristas">Cantidad de Aristas:</label><br>
   <input type="number" id="cantidadAristas" name="cantidadAristas" required><br>
-  <h3>Detalles de las Aristas:</h3>
-  <div id="aristasContainer">
-    <!-- Aquí se agregarán dinámicamente los campos de entrada para los detalles de las aristas -->
-  </div>
+  <label for="aristas">Aristas (formato vértice1 vértice2 peso, separadas por comas o espacios):</label><br>
+  <textarea id="aristas" name="aristas" rows="4" cols="50" required></textarea><br>
   <br>
-  <button type="button" onclick="agregarArista()">Agregar Arista</button>
-  <br><br>
   <button type="submit">Guardar Datos</button>
 </form>
 
 <script>
-function agregarArista() {
-  const aristasContainer = document.getElementById("aristasContainer");
-  const aristaIndex = aristasContainer.children.length + 1;
-  
-  const div = document.createElement("div");
-  div.innerHTML = `
-    <label for="arista${aristaIndex}Vertice1">Vértice 1:</label>
-    <input type="text" id="arista${aristaIndex}Vertice1" name="arista${aristaIndex}Vertice1" required>
-    <label for="arista${aristaIndex}Vertice2">Vértice 2:</label>
-    <input type="text" id="arista${aristaIndex}Vertice2" name="arista${aristaIndex}Vertice2" required>
-    <label for="arista${aristaIndex}Peso">Peso:</label>
-    <input type="text" id="arista${aristaIndex}Peso" name="arista${aristaIndex}Peso" required>
-    <br><br>
-  `;
-  
-  aristasContainer.appendChild(div);
-}
-
 document.getElementById("grafoForm").addEventListener("submit", function(event) {
   event.preventDefault();
   
   const formData = new FormData(this);
   const cantidadVertices = formData.get('cantidadVertices');
   const cantidadAristas = formData.get('cantidadAristas');
+  const aristas = formData.get('aristas').trim().split(/\s+/);
   let data = `${cantidadVertices} ${cantidadAristas}\n`;
 
   // Obtenemos los detalles de las aristas y los formateamos
-  for (let i = 1; i <= cantidadAristas; i++) {
-    const vertice1 = formData.get(`arista${i}Vertice1`);
-    const vertice2 = formData.get(`arista${i}Vertice2`);
-    const peso = formData.get(`arista${i}Peso`);
+  for (let i = 0; i < aristas.length; i += 3) {
+    const vertice1 = aristas[i];
+    const vertice2 = aristas[i + 1];
+    const peso = aristas[i + 2];
     data += `${vertice1} ${vertice2} ${peso}\n`;
   }
 
@@ -75,3 +54,7 @@ document.getElementById("grafoForm").addEventListener("submit", function(event) 
 
 </body>
 </html>
+
+
+
+
