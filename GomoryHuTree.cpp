@@ -24,7 +24,7 @@ public:
     return a > b ? b : a;
   }
 
-int bfs(int source, int sink)
+  int bfs(int source, int sink)
   {
     int i, j, u, v;
     for (i = 0; i < num_nodes; i++)
@@ -102,38 +102,41 @@ int bfs(int source, int sink)
     return max_flow;
   }
 
-void read_input_file(const std::string& filename)
-{
+  void read_input_file(const std::string &filename)
+  {
     int a, b, c, i, j;
 
     // Abrir el archivo para lectura
     std::ifstream file(filename);
-    if (!file.is_open()) {
-        std::cerr << "Error: No se pudo abrir el archivo " << filename << std::endl;
-        return;
+    if (!file.is_open())
+    {
+      std::cerr << "Error: No se pudo abrir el archivo " << filename << std::endl;
+      return;
     }
 
     // Leer el número de nodos y aristas
     file >> num_nodes >> num_edges;
 
     // Inicializar la matriz de capacidades vacía
-    for (i = 0; i < num_nodes; i++) {
-        for (j = 0; j < num_nodes; j++) {
-            capacity[i][j] = 0;
-        }
+    for (i = 0; i < num_nodes; i++)
+    {
+      for (j = 0; j < num_nodes; j++)
+      {
+        capacity[i][j] = 0;
+      }
     }
 
     // Leer las aristas y sus capacidades
-    for (i = 0; i < num_edges; i++) {
-        file >> a >> b >> c;
-        capacity[a][b] = c;
-        capacity[b][a] = c;  // Si el grafo es no dirigido, también necesitas esta línea
+    for (i = 0; i < num_edges; i++)
+    {
+      file >> a >> b >> c;
+      capacity[a][b] = c;
+      capacity[b][a] = c; // Si el grafo es no dirigido, también necesitas esta línea
     }
 
     // Cerrar el archivo
     file.close();
-}
-
+  }
 
   void print()
   {
@@ -150,69 +153,84 @@ void read_input_file(const std::string& filename)
     }
   }
 
-void mgh(){
-    short p[Max_nodes], f1 [Max_nodes], corteMin, t, source, sink ;
-    for(int i=0; i<num_nodes;i++){
-      //Inicializamos el arreglo de supernodos(p) y los flujos maximos de los supernodos(f1)
-      p[i]=0;
-      f1[i]=0;
-      for(int j=0;j<num_nodes;j++){
-        //Inicializamos el flujo maximo entre los supernodos i j 
-        tree[i][j]=0;
+  void mgh()
+  {
+    short p[Max_nodes], f1[Max_nodes], corteMin, t, source, sink;
+    for (int i = 0; i < num_nodes; i++)
+    {
+      // Inicializamos el arreglo de supernodos(p) y los flujos maximos de los supernodos(f1)
+      p[i] = 0;
+      f1[i] = 0;
+      for (int j = 0; j < num_nodes; j++)
+      {
+        // Inicializamos el flujo maximo entre los supernodos i j
+        tree[i][j] = 0;
       }
     }
 
-    for(source=1; source<num_nodes; source++){
-      sink=p[source];
+    for (source = 1; source < num_nodes; source++)
+    {
+      sink = p[source];
 
-      corteMin= Ford_Fulkerson(source, sink);
-      f1[source]=corteMin;
-  
-    for(int i=0; i<num_nodes;i++){
-      if(i != source && p[i]== sink && color[i]== Black){
-        p[i]= source;
+      corteMin = Ford_Fulkerson(source, sink);
+      f1[source] = corteMin;
+
+      for (int i = 0; i < num_nodes; i++)
+      {
+        if (i != source && p[i] == sink && color[i] == Black)
+        {
+          p[i] = source;
+        }
+      }
+      if (color[p[sink]] == Black)
+      {
+        p[source] = p[sink];
+        p[sink] = source;
+        f1[source] = f1[sink];
+        f1[sink] = corteMin;
+      }
+      if (source == num_nodes - 1)
+      {
+        for (int i = 1; i <= source; i++)
+        {
+          tree[i][p[i]] = f1[i];
+        }
       }
     }
-    if(color[p[sink]]== Black){
-      p[source]= p[sink];
-      p[sink]= source; 
-      f1[source]= f1[sink];
-      f1[sink]= corteMin;
-    }
-    if(source== num_nodes-1){
-      for (int i=1; i<=source; i++){
-        tree[i][p[i]]= f1[i];
-      }
-    }
-    }
-    //Imprimir 
-	printf("\n");
-	for (int i = 0; i<num_nodes; i++)
-		for (int j = 0; j<num_nodes; j++)
-			if(tree[i][j]>0)
-				printf("%d %d %d\n", i, j, tree[i][j]);
+    // Imprimir
+    printf("\n");
+    for (int i = 0; i < num_nodes; i++)
+      for (int j = 0; j < num_nodes; j++)
+        if (tree[i][j] > 0)
+          printf("%d %d %d\n", i, j, tree[i][j]);
   }
-  void grabar_datos(const char* filename){
-  std::ofstream file(filename);
-  if (!file.is_open()) {
-    std::cerr << "Error: No se pudo abrir el archivo " << filename << std::endl;
-    return;
-  }
-  for (int i=0; i<num_nodes;i++){
-    for (int j=0; j<num_nodes;j++){
-      if(tree[i][j]>0){
-        file << i << " " << j << " " << tree[i][j] << std::endl;
+  void grabar_datos(const char *filename)
+  {
+    std::ofstream file(filename);
+    if (!file.is_open())
+    {
+      std::cerr << "Error: No se pudo abrir el archivo " << filename << std::endl;
+      return;
+    }
+    for (int i = 0; i < num_nodes; i++)
+    {
+      for (int j = 0; j < num_nodes; j++)
+      {
+        if (tree[i][j] > 0)
+        {
+          file << i << " " << j << " " << tree[i][j] << std::endl;
+        }
       }
     }
   }
-}
 };
 
-int main(){
-    Graph graph;
-    // Leer el grafo desde la entrada estándar
-    graph.read_input_file("C:/Users/Josel/Documents/Proyecto/datos_grafo.txt"); // Leer la entrada del grafo
-    graph.mgh(); // Construir el árbol de Gomory-Hu y mostrar la salida
-    //graph.print();
-    graph.grabar_datos("C:/Users/Josel/Documents/Proyecto/output.txt");
+int main()
+{
+  Graph graph;
+  // Leer el grafo desde la entrada estándar
+  graph.read_input_file("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/datos_grafo.txt"); // Leer la entrada del grafo
+  graph.mgh();                                                                               // Construir el árbol de Gomory-Hu y mostrar la salida
+  // graph.print();
+  graph.grabar_datos("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/output.txt");
 }
