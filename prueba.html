@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario para ingresar datos de grafo</title>
+</head>
+<body>
+
+<h2>Ingrese los datos del grafo:</h2>
+
+<form id="grafoForm">
+  <label for="cantidadVertices">Cantidad de Vértices:</label><br>
+  <input type="number" id="cantidadVertices" name="cantidadVertices" required><br>
+  <label for="cantidadAristas">Cantidad de Aristas:</label><br>
+  <input type="number" id="cantidadAristas" name="cantidadAristas" required><br>
+  <h3>Detalles de las Aristas:</h3>
+  <div id="aristasContainer">
+    <!-- Aquí se agregarán dinámicamente los campos de entrada para los detalles de las aristas -->
+  </div>
+  <br>
+  <button type="button" onclick="agregarArista()">Agregar Arista</button>
+  <br><br>
+  <button type="submit">Guardar Datos</button>
+</form>
+
+<script>
+function agregarArista() {
+  const aristasContainer = document.getElementById("aristasContainer");
+  const aristaIndex = aristasContainer.children.length + 1;
+  
+  const div = document.createElement("div");
+  div.innerHTML = `
+    <label for="arista${aristaIndex}Vertice1">Vértice 1:</label>
+    <input type="text" id="arista${aristaIndex}Vertice1" name="arista${aristaIndex}Vertice1" required>
+    <label for="arista${aristaIndex}Vertice2">Vértice 2:</label>
+    <input type="text" id="arista${aristaIndex}Vertice2" name="arista${aristaIndex}Vertice2" required>
+    <label for="arista${aristaIndex}Peso">Peso:</label>
+    <input type="text" id="arista${aristaIndex}Peso" name="arista${aristaIndex}Peso" required>
+    <br><br>
+  `;
+  
+  aristasContainer.appendChild(div);
+}
+
+document.getElementById("grafoForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  
+  const formData = new FormData(this);
+  const cantidadVertices = formData.get('cantidadVertices');
+  const cantidadAristas = formData.get('cantidadAristas');
+  let data = `${cantidadVertices} ${cantidadAristas}\n`;
+
+  // Obtenemos los detalles de las aristas y los formateamos
+  for (let i = 1; i <= cantidadAristas; i++) {
+    const vertice1 = formData.get(`arista${i}Vertice1`);
+    const vertice2 = formData.get(`arista${i}Vertice2`);
+    const peso = formData.get(`arista${i}Peso`);
+    data += `${vertice1} ${vertice2} ${peso}\n`;
+  }
+
+  const filename = "datos_grafo.txt";
+  const blob = new Blob([data], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  
+  const a = document.createElement("a");
+  a.href = url;
+  a.setAttribute("download", filename);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+</script>
+
+</body>
+</html>
