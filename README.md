@@ -1,6 +1,6 @@
 # Gomory-Hu-Tree
 Gomory-Hu Tree implementation
-![](GomoryHu.jpg)
+![](Imagenes/GomoryHu.jpg)
 
 ## Integrantes:
 - Fabryzzio Jossue Meza Torres
