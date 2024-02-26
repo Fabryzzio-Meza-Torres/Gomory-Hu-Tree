@@ -4,7 +4,7 @@ import os
 archivo_a_mover = "C:/Users/Josel/Downloads/datos_grafo.txt"
 
 # Ruta de la carpeta de destino
-carpeta_destino = "C:/Users/Josel/Documents/Proyecto"
+carpeta_destino = "C:/Users/Josel/Documents/Gomory-Hu-Tree"
 
 # Ruta completa del archivo de destino
 ruta_destino = os.path.join(carpeta_destino, "datos_grafo.txt")

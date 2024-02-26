@@ -69,7 +69,7 @@ if os.path.exists("output.txt"):
     os.remove("output.txt")
 
 # Crear una carpeta con sys
-os.system("C:/Users/Josel/Documents/Proyecto/output/GomoryHuTree.exe")
+os.system("C:/Users/Josel/Documents/Gomory-Hu-Tree/output/GomoryHuTree.exe")
 
 # Obtener los datos y dibujar el grafo
 obtener_datos()

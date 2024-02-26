@@ -229,8 +229,8 @@ int main()
 {
   Graph graph;
   // Leer el grafo desde la entrada estándar
-  graph.read_input_file("C:/Users/Josel/Documents/Proyecto/datos_grafo.txt"); // Leer la entrada del grafo
+  graph.read_input_file("C:/Users/Josel/Documents/Gomory-Hu-Tree/datos_grafo.txt"); // Leer la entrada del grafo
   graph.mgh();                                                                               // Construir el árbol de Gomory-Hu y mostrar la salida
   // graph.print();
-  graph.grabar_datos("C:/Users/Josel/Documents/Proyecto/output.txt");
+  graph.grabar_datos("C:/Users/Josel/Documents/Gomory-Hu-Tree/output.txt");
 }
