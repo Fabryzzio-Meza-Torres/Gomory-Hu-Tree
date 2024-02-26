@@ -18,7 +18,7 @@ Gomory-Hu Tree implementation
 3.- Cambiamos la ruta dentro del html para que cuando se ejecute se muestre el fondo.
 ![](Imagenes/paso3_1.png)
 
-4.- Abrimos el html y llenamos los datos solicitados.
+4.- Abrimos el html y llenamos los datos solicitados, una vez enviado los datos automaticamente se descargara el input que usaremos en el programa.
 ![](Imagenes/paso3.png)
 
 5.- Ejecutamos el InterfaceHelper.py, esto nos ayudará a mover el archivo que nos descargo el html a nuestra carpeta de proyecto, es importante cambiar la ruta para que funcione el archivo.
