@@ -19,12 +19,12 @@ using namespace std;
 class Graph
 {
 public:
-  int minimun(int a, int b)
+  int minimun(int a, int b) // O(1)
   {
     return a > b ? b : a;
   }
 
-  int bfs(int source, int sink)
+  int bfs(int source, int sink) // O(V+E)
   {
     int i, j, u, v;
     for (i = 0; i < num_nodes; i++)
@@ -61,7 +61,7 @@ public:
     return (color[sink] == Black);
   }
 
-  void print_tree()
+  void print_tree() // O(V^2)
   {
     int i, j;
     for (i = 0; i < num_nodes; i++)
@@ -74,7 +74,7 @@ public:
     }
   }
 
-  int Ford_Fulkerson(int source, int sink)
+  int Ford_Fulkerson(int source, int sink) // O(V*E^2)
   {
     int i, j, u;
     int max_flow = 0;
@@ -85,24 +85,24 @@ public:
         flow[i][j] = 0;
       }
     }
-    while (bfs(source, sink))
+    while (bfs(source, sink)) // O(V+E)=O(V+(V-1))=O(V)
     {
       int increment = oo;
-      for (u = sink; pred[u] != (-1); u = pred[u])
+      for (u = sink; pred[u] != (-1); u = pred[u]) // O(E)
       {
         increment = minimun(increment, capacity[pred[u]][u] - flow[pred[u]][u]);
       }
-      for (u = sink; pred[u] != (-1); u = pred[u])
+      for (u = sink; pred[u] != (-1); u = pred[u]) // O(E)
       {
         flow[pred[u]][u] += increment;
         flow[u][pred[u]] -= increment;
       }
-      max_flow += increment;
+      max_flow += increment; // O(1)
     }
     return max_flow;
   }
 
-  void read_input_file(const std::string &filename)
+  void read_input_file(const std::string &filename) // O(V^2 + E)+O(1)
   {
     int a, b, c, i, j;
 
@@ -131,14 +131,14 @@ public:
     {
       file >> a >> b >> c;
       capacity[a][b] = c;
-      capacity[b][a] = c; // Si el grafo es no dirigido, también necesitas esta línea
+      capacity[b][a] = c;
     }
 
     // Cerrar el archivo
     file.close();
   }
 
-  void print()
+  void print() // O(V^2)
   {
     cout << "num_node " << num_nodes << endl;
     cout << "num_edges " << num_edges << endl;
@@ -153,29 +153,29 @@ public:
     }
   }
 
-  void mgh()
+  void mgh() // O(V^2*E^2)
   {
     short p[Max_nodes], f1[Max_nodes], corteMin, t, source, sink;
-    for (int i = 0; i < num_nodes; i++)
+    for (int i = 0; i < num_nodes; i++) // O(V)
     {
       // Inicializamos el arreglo de supernodos(p) y los flujos maximos de los supernodos(f1)
       p[i] = 0;
       f1[i] = 0;
-      for (int j = 0; j < num_nodes; j++)
+      for (int j = 0; j < num_nodes; j++) // O(V)
       {
         // Inicializamos el flujo maximo entre los supernodos i j
         tree[i][j] = 0;
       }
     }
 
-    for (source = 1; source < num_nodes; source++)
+    for (source = 1; source < num_nodes; source++) // O(V-1)
     {
       sink = p[source];
 
-      corteMin = Ford_Fulkerson(source, sink);
+      corteMin = Ford_Fulkerson(source, sink); // O(V*E^2)
       f1[source] = corteMin;
 
-      for (int i = 0; i < num_nodes; i++)
+      for (int i = 0; i < num_nodes; i++) // O(V)
       {
         if (i != source && p[i] == sink && color[i] == Black)
         {
@@ -199,14 +199,14 @@ public:
     }
     // Imprimir
     printf("\n");
-    for (int i = 0; i < num_nodes; i++)
-      for (int j = 0; j < num_nodes; j++)
+    for (int i = 0; i < num_nodes; i++)   // O(V)
+      for (int j = 0; j < num_nodes; j++) // O(V)
         if (tree[i][j] > 0)
           printf("%d %d %d\n", i, j, tree[i][j]);
   }
   void grabar_datos(const char *filename)
   {
-    std::ofstream file(filename);
+    std::ofstream file(filename); // O(V^2)+O(1)
     if (!file.is_open())
     {
       std::cerr << "Error: No se pudo abrir el archivo " << filename << std::endl;
@@ -224,6 +224,9 @@ public:
     }
   }
 };
+
+// Complejidad Final del Algoritmo:
+// Computacional: O(V^2*E^2), Espacial: O(V^2)
 
 int main()
 {

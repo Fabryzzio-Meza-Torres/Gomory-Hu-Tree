@@ -11,6 +11,7 @@ int main()
     graph.print();
     cout << endl;
     cout << graph.bfs(2, 0) << endl;
+    cout << endl;
     cout << "Gomory-Hu Tree" << endl;
     graph.mgh();
     graph.grabar_datos("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/output.txt");
