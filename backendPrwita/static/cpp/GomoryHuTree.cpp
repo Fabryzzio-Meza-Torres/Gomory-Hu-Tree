@@ -231,8 +231,8 @@ int main()
 {
   Graph graph;
   // Leer el grafo desde la entrada estándar
-  graph.read_input_file("C:/Users/Fernando/Documents/UTEC/2024-0/AED/Gomory-Hu-Tree/backendPrwita/static/cpp/datos_grafo.txt"); // Leer la entrada del grafo
-  graph.mgh();                                                                               // Construir el árbol de Gomory-Hu y mostrar la salida
+  graph.read_input_file("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/backendPrwita/static/cpp/datos_grafo.txt"); // Leer la entrada del grafo
+  graph.mgh();                                                                                                        // Construir el árbol de Gomory-Hu y mostrar la salida
   // graph.print();
-  graph.grabar_datos("C:/Users/Fernando/Documents/UTEC/2024-0/AED/Gomory-Hu-Tree/backendPrwita/static/cpp/output.txt");
+  graph.grabar_datos("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/backendPrwita/static/cpp/output.txt");
 }

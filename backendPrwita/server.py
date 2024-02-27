@@ -34,7 +34,7 @@ def upload():
         print(ruta)
         #eliminar el output.txt
         try:
-            os.remove("backendPrwita/static/cpp/output.txt")
+            os.remove("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/backendPrwita/static/cpp/output.txt")
         except:
             pass
 
@@ -42,12 +42,12 @@ def upload():
         os.system(ruta)
 
         #esperar a que se cree el archivo
-        while not os.path.exists("backendPrwita/static/cpp/output.txt"):
+        while not os.path.exists("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/backendPrwita/static/cpp/output.txt"):
             pass
 
         output = ""
         #leer el archivo
-        with open("backendPrwita/static/cpp/output.txt", "r") as file:
+        with open("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/backendPrwita/static/cpp/output.txt", "r") as file:
             output = file.read()
             file.close()
 
@@ -66,7 +66,7 @@ def upload():
         labels = nx.get_edge_attributes(G, 'weight')  # Obtenemos los pesos de las aristas
         nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)  # Dibujamos los pesos
         plt.title(f"Grafo Original")
-        plt.savefig(f"backendPrwita/static/grafo_original.png")  # Guardar la figura como imagen
+        plt.savefig(f"C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/backendPrwita/static/grafo_original.png")  # Guardar la figura como imagen
         plt.close()
 
         #crear el arbol de gomory-hu
@@ -82,7 +82,7 @@ def upload():
         labels = nx.get_edge_attributes(G, 'weight')  # Obtenemos los pesos de las aristas
         nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)  # Dibujamos los pesos
         plt.title(f"Arbol de Gomory-Hu")
-        plt.savefig(f"backendPrwita/static/arbol_gomory_hu.png")  # Guardar la figura como imagen
+        plt.savefig(f"C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/backendPrwita/static/arbol_gomory_hu.png")  # Guardar la figura como imagen
         plt.close()
         
 
