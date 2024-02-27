@@ -19,13 +19,16 @@ Gomory-Hu Tree implementation
 
 3.- Cambiamos la ruta dentro del python y c++ para que cuando se ejecute se muestre el fondo.
 ![](Imagenes/paso3_1.png)
+![](Imagenes/paso3_2.png)
+![](Imagenes/paso3_3.png)
 
 4.- Corremos el servidor, es decir, server.py
-![](Imagenes/paso3_1.png)
+![](Imagenes/paso4.png)
 
 
 5.- Abrimos el html y llenamos los datos solicitados. Para luego poder presionar el boton de enviar los datos
-![](Imagenes/paso3.png)
+![](Imagenes/paso5_1.png)
+![](Imagenes/paso5_2.png)
 
 6.- Automaticamente se generaría nuestros graficos, tanto del grafo cómo dle arbol 
-![](Imagenes/paso4.png)
+![](Imagenes/paso6.png)
