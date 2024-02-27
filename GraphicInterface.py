@@ -69,7 +69,11 @@ if os.path.exists("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/output.txt")
     os.remove("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/output.txt")
 
 # Crear una carpeta con sys
+<<<<<<< Updated upstream:GraphicInterface.py
 os.system("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/GomoryHuTree.exe")
+=======
+os.system("C:/Users/ASUS/OneDrive/Documentos/Gomory-Hu-Tree/backendPrwita/static/cpp/GomoryHuTree.exe")
+>>>>>>> Stashed changes:backendPrwita/GraphicInterface.py
 
 # Obtener los datos y dibujar el grafo
 obtener_datos()
