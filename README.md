@@ -1,16 +1,18 @@
 # Gomory-Hu-Tree
+
 Gomory-Hu Tree implementation
 ![](Imagenes/GomoryHu.jpg)
 
 ## Integrantes:
+
 - Fabryzzio Jossue Meza Torres
 - Fernando Alonso Usurin Arias
 - Yoselyn Victoria Miranda Chirinos
-  
+
 ## Ejecución de la interfaz gráfica:
+
 1.- Clonar el repositorio desde la ubicación que deseas tener el proyecto.
 ![](Imagenes/paso1.png)
-
 
 2.- Abrir el proyecto en Visual Studio Code.
 ![](Imagenes/paso2.png)
@@ -31,7 +33,3 @@ Gomory-Hu Tree implementation
 ![](Imagenes/paso6.png)
 ![](Imagenes/paso6_1.png)
 ![](Imagenes/paso6_2.png)
-
-
-
-
