@@ -11,24 +11,23 @@ Gomory-Hu Tree implementation
 
 ## Ejecución de la interfaz gráfica:
 
-1.- Clonar el repositorio desde la ubicación que deseas tener el proyecto.
+1.- Clonar el repositorio en la ubicación donde se desea tener el proyecto.
 ![](Imagenes/paso1.png)
 
-2.- Abrir el proyecto en Visual Studio Code.
-![](Imagenes/paso2.png)
-
-3.- Cambiamos la ruta dentro del python y c++ para que cuando se ejecute se muestre el fondo.
+2.- Para correr la interfaz grafica es necesario cambiar las rutas en los archivos server.py, GraphicInterface.py y GomoryHuTree.cpp, se muestran imagenes referenciales:
+server.py:
 ![](Imagenes/paso3_1.png)
+GraphicInterface.py
 ![](Imagenes/paso3_2.png)
+GomoryHuTree.cpp
 ![](Imagenes/paso3_3.png)
 
-4.- Corremos el servidor, es decir, server.py
+4.- Despues de cambiar las rutas correctamente en todos los archivos mencionados, ejecutamos server.py para desplegar nuestro servidor de Flask.
 ![](Imagenes/paso4.png)
 
-
-5.- Abrimos el html y llenamos los datos solicitados. Para luego poder presionar el boton de enviar los datos
+5.- Luego entramos en la carpeta del proyecto donde lo hallamos clonado, entramos a la carpeta llamda html, y ejecutamos prueba.html. Al realizar ello, se nos mostrará la interfaz grafica, pidiendonos datos del grafo a ingresar.Despues de agregar los datos en el formato requerido enviamos nuestros datos.
 ![](Imagenes/paso5_1.png)
 ![](Imagenes/paso5_2.png)
 
-6.- Automaticamente se generaría nuestros graficos, tanto del grafo cómo dle arbol 
+6.- La interfaz enviará un mensaje de que el grafo de entrada a sido recibido y graficará tanto el grafo original como su Gomory Hu Tree correspondiente.
 ![](Imagenes/paso6.png)
